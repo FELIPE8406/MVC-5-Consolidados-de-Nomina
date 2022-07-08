@@ -1,0 +1,1527 @@
+@model MEE.Models.ConsolidatePayroll.Parameters
+@{
+    ViewBag.Title = "Consolidados de nomina";
+}
+<div class="container">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Validar Consolidados </h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Index", "Home")">Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <strong>Transacciones</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="input-group">
+                        <div class=" col-sm-6">
+                            <div class="input-group" id="step1">
+                                @Html.Label("Convenios: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-sm-9">
+                                    @Html.DropDownList("Agreement", new SelectList(ViewBag.Agreements, "strConvenio", "strNombreConvenio"), htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group" id="step2">
+                                @Html.Label("Fecha de corte: ", htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-sm-8">
+                                    @Html.DropDownList("DateCut", new SelectList(ViewBag.DateCut, "FullDate", "dtmFechaCorte"), htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        @*<div class="col-sm-12">
+                            <div class="input-group" id="step3">
+                                @Html.Label("Documentos disponibles:", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-sm-9">
+                                    <select id="ListDco" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="input-group" id="BottomSpaces">
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal parametros-->
+<div class="modal fade" id="ModalExtra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Parametros</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            @*<div class="col-md-12">
+                                @Html.LabelFor(model => model.Employee_Id, htmlAttributes: new { @class = "control-label col-md-12" })
+                                @Html.EditorFor(model => model.Employee_Id, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Employee_Id, "", new { @class = "text-danger" })
+                            </div>*@
+                        </div>
+                    </div>
+                    @*<div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.Nit, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.Nit, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nit, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>*@
+                    @*<div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.Agreement, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    @Html.EditorFor(model => model.Agreement, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Agreement, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <div id="data_1" class="col-lg-12">
+                        @Html.LabelFor(model => model.FecLiqI, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12 ">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.EditorFor(model => model.FecLiqI, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = System.DateTime.Now.ToString("dd/MM/yyyy") } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FecLiqI, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div id="data_1" class="col-lg-12">
+                        @Html.LabelFor(model => model.FecLiqF, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12 ">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.EditorFor(model => model.FecLiqF, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = System.DateTime.Now.ToString("dd/MM/yyyy") } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FecLiqF, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div id="data_1" class="col-lg-12">
+                        @Html.LabelFor(model => model.FecLiqI2, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12 ">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.EditorFor(model => model.FecLiqI2, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = System.DateTime.Now.ToString("dd/MM/yyyy") } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FecLiqI2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div id="data_1" class="col-lg-12">
+                        @Html.LabelFor(model => model.FecLiqF2, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12 ">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.EditorFor(model => model.FecLiqF2, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = System.DateTime.Now.ToString("dd/MM/yyyy") } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FecLiqF2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Metodo</label>
+                            <div class="col-md-12">
+                                <select id="Tip_Con" class="  form-control">
+                                    <option value="">Selecione... </option>
+                                    <option value="1">Prima </option>
+                                    <option value="2">Cesantías</option>
+                                    <option value="3">Vacaciones </option>
+                                    <option value="4">Cesantías e intereses </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                @*<button id="GenerateExcel" class="btn btn-outline-success btn-sm">Generar</button>*@
+                                <button id="GenerateExcel" value="Guardar" class="btn btn-outline-success">Generar</button>                           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveExtemporainToNovasoft", "ConsolidatePayroll", FormMethod.Post, new { @id = "GoToSavecon" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="Date1" id="dateSav" />
+    <input type="hidden" name="Agreement1" id="AgreeSav" />
+    <input type="hidden" name="ConsolidateType" value="14" />
+}
+
+@using (Html.BeginForm("SaveExtemporainToNovasoft", "ConsolidatePayroll", FormMethod.Post, new { @id = "GoToSave" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="Date" id="dateSav" />
+    <input type="hidden" name="Agreement" id="AgreeSav" />
+    <input type="hidden" name="ConsolidateType" value="02" />
+}
+@*@using (Html.BeginForm("GenerateExcel", "ConsolidatePayroll", FormMethod.Post, new { @id = "GoToExcel" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="Agre" id="AgreListE" />
+        <input type="hidden" name="Date" id="DateListE" />
+        <input type="hidden" name="IncomeType" value="@ViewBag.Income" />
+    }*@
+
+
+@using (Html.BeginForm("GenerateExcel", "ConsolidatePayroll", FormMethod.Post, new { @id = "GenerateExtra1" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="FecLiqI" id="FecLiqI_ext" />
+    <input type="hidden" name="FecLiqF" id="FecLiqF_ext" />
+    <input type="hidden" name="FecLiqI2" id="FecLiqI2_ext" />
+    <input type="hidden" name="FecLiqF2" id="FecLiqF2_ext" />
+    <input type="hidden" name="Tip_Con" id="Tip_Con_ext" />
+    <input type="hidden" name="Employee_Id" id="Employee_Id_ext" />
+    <input type="hidden" name="Agreement" id="Agreement_ext" />
+
+
+//  <input type="hidden" name="str_Edad" id="str_edad_ext" />
+@*<input type="hidden" name="str_Desc" id="str_desc_ext" />
+    <input type="hidden" name="int_Eps" id="int_eps_ext" />
+    <input type="hidden" name="int_Pension" id="int_pension_ext" />*@
+}
+
+
+@Html.Hidden("ListEmployed")
+
+@section Styles {
+    <environment names="Development">
+        <link href="~/src/css/DataPicker/boostrapSelect.css" rel="stylesheet" />
+        <link href="~/src/css/DataTable/datatables.min.css" rel="stylesheet" />
+        <link href="~/assets/css/CustomPaysheet.css" rel="stylesheet" />
+        @*<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+        <link href="~/assets/cssINS/bootstrap-tour.min.css" rel="stylesheet" />
+        <link href="~/assets/cssINS/datepicker3.css" rel="stylesheet" />
+    </environment>
+    <environment names="Staging,Production">
+        <link href="~/src/css/DataPicker/boostrapSelect.css" rel="stylesheet" />
+        <link href="~/src/css/DataTable/datatables.min.css" rel="stylesheet" />
+        @*<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+        <link href="~/src/css/DataPicker/boostrapSelect.css" rel="stylesheet" />
+        <link href="~/assets/cssINS/bootstrap-tour.min.css" rel="stylesheet" />
+        <link href="~/assets/css/CustomPaysheet.css" rel="stylesheet" />
+        <link href="~/assets/cssINS/datepicker3.css" rel="stylesheet" />
+    </environment>
+}
+
+@section Scripts {
+    <script src="~/src/css/DataTable/datatables.min.js"></script>
+    @*<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>*@
+    <script src="~/src/css/DataPicker/bootstrap-datepicker.js"></script>
+    <script src="~/src/js/custom.js"></script>
+    <script src="~/assets/jsINS/bootstrap-tour.min.js"></script>
+    <script type="text/javascript">
+        var table;
+        var InfoNov;
+        var fullDate;
+        var Separate;
+        var Emp;
+        var IsAcepted;
+        var IsActualNomina;
+        var initour = 0;
+
+        $(document).ready(function () {
+            $("select").attr('data-live-search', true); //Añadir la busqueda de los dropdownlist
+            $("#Agreement").selectpicker(); //Aplición de select pickers
+            $("#DateCut").selectpicker(); //Aplición de select pickers
+            $("#ListDco").selectpicker(); //Aplición de select pickers
+            //Valido si existe la fecha y el convenio en algun dato para traer toda la info
+            if ("@ViewBag.Date" !== "" && "@ViewBag.Agree" !== "") {
+                //Arreglo los dropdown de convenios para que dejen la información correspondiente
+                if ($('#Agreement option').length == 2) {
+                    $("#Agreement option:eq(0)").remove();
+                    $("#Agreement").selectpicker('refresh');
+                }
+                else {
+                    $("#Agreement").val("@ViewBag.Agree");
+                    $("#Agreement").selectpicker('refresh');
+                }
+                ChargeListDates("Special");//Cargo la lista de fechas con base a una lista seleccionada
+                CongifTableAndBottomsWD();
+             //   NumForBotomsErrorsExcelWD();
+            }
+            else
+            {
+                //Arreglo los dropdown de convenios para que dejen la información correspondiente
+                if ($('#Agreement option').length == 2) {
+                    $("#Agreement option:eq(0)").remove();
+                    $("#Agreement").selectpicker('refresh');
+                }
+                ChargeListDates("Standar");//Carga la lista de fechas sin selección.
+                OnlyDatable();//Si no hay datos de fecha y convenio, se debe cargar la tabla vacia.
+            };
+        });
+
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                format: 'dd/mm/yyyy',
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: false,
+                autoclose: true,
+                language: 'es',
+                //startDate: new Date('@ViewBag.BussinessDays'),
+            });
+
+        $(document).on("change", "#DateCut", function () {
+           swal.showLoading();
+           Swal.fire({
+               title: 'Consultando novedades...',
+               allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    fullDate = $("#DateCut").val();
+                    Separate = fullDate.split('-');
+                    table.destroy();
+                    ListDocuments();
+                    CongifTableAndBottoms();
+              //      NumForBotomsErrorsExcel();
+                }
+           });
+
+        });
+        function CongifTableAndBottoms() {
+            $.ajax({
+                url: 'ChargeTableBottoms',
+                type: 'post',
+                async: false,
+                data: {
+                    FechaCorte: $("#DateCut").val(),
+                    Convenio: $("#Agreement").val(),
+                    Income: "@ViewBag.Income",
+                },
+                dataType: 'json',
+                success: function (elemen) {
+                    if (elemen.CompleteProcess) {
+                        IsAcepted = elemen.IsAproveed;
+                        IsActualNomina = elemen.IsActualNomina;
+                        DatablesDatas("WithButtons");
+                        $("#BottomSpaces").html("");
+                        $("#BottomSpaces").append('<button id="IniProcessNomPr" class="btn btn-outline-success mr-2 btn-sm">Liquidaciones de prima</button>');
+                        $("#BottomSpaces").append('<button id="IniProcessNomcon" class="btn btn-outline-success mr-2 btn-sm">Consolidados</button>');
+                      //  $("#BottomSpaces").append('<button id="GenerateExcel" class="btn btn-outline-success mr-2 btn-sm">Generar</button>');
+                        $("#BottomSpaces").append('  <button type="button" class="btn btn-default btn-outline-success" data-toggle="modal" data-target="#ModalExtra">Generar</button >');
+
+                        setTimeout(function () {
+                                        if (initour== 1) {
+                                            tourBotones.restart();
+                                        }
+                                        swal.close();
+                                    }, 1600);
+                    } else {
+                        swal.close();
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Tenemos problemas para facilitar las funcionalidades. Intentalo más tarde.',
+                            footer: '<center>Por favor comuniquese con el Departamento de TI y reporte este error</center>'
+                        });
+                    }
+                },
+                error: (function () {
+                    swal.close();
+                    Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Tenemos problemas para facilitar las funcionalidades. Intentalo más tarde.',
+                            footer: '<center>Por favor comuniquese con el Departamento de TI y reporte este error</center>'
+                    });
+                })
+            });
+        }
+
+        function CongifTableAndBottomsWD() {
+            $.ajax({
+                url: 'ChargeTableBottoms',
+                type: 'post',
+                async: false,
+                data: {
+                    FechaCorte: $("#DateCut").val(),
+                    Convenio: "@ViewBag.Agree",
+                    Income: "@ViewBag.Income",
+                },
+                dataType: 'json',
+                success: function (elemen) {
+                    if (elemen.CompleteProcess) {
+                        IsAcepted = elemen.IsAproveed;
+                        IsActualNomina = elemen.IsActualNomina;
+                        DatablesDatas("Reload");
+                        $("#BottomSpaces").html("");
+                        console.log("@ViewBag.Income");
+
+                        $("#BottomSpaces").append('<button id="IniProcessNomPr" class="btn btn-outline-success mr-2 btn-sm">Liquidaciones de prima</button>');
+                        $("#BottomSpaces").append('<button id="IniProcessNomcon" class="btn btn-outline-success mr-2 btn-sm">Consolidados</button>');
+                //        $("#BottomSpaces").append('<button id="GenerateExcel" class="btn btn-outline-success mr-2 btn-sm">Generar</button>');
+                        $("#BottomSpaces").append('  <button type="button" class="btn btn-default btn-outline-success" data-toggle="modal" data-target="#ModalExtra">Generar</button >');
+
+                        setTimeout(function () {
+                                    if (initour== 1) {
+                                        tourBotonesMin.restart();
+                                    }
+                                    swal.close();
+                        }, 1600);
+                    } else {
+                        swal.close();
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Tenemos problemas para facilitar las funcionalidades. Intentalo más tarde.',
+                            footer: '<center>Por favor comuniquese con el Departamento de TI y reporte este error</center>'
+                        });
+                    }
+                },
+                error: (function () {
+                    swal.close();
+                    Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Tenemos problemas para facilitar las funcionalidades. Intentalo más tarde.',
+                            footer: '<center>Por favor comuniquese con el Departamento de TI y reporte este error</center>'
+                    });
+                })
+            });
+            }
+            
+        $(document).on("click", "#GenerateExcel", function () {
+
+            $("#FecLiqI_ext").val($("#FecLiqI").val());
+            $("#FecLiqF_ext").val($("#FecLiqF").val());
+            $("#FecLiqI2_ext").val($("#FecLiqI2").val());
+            $("#FecLiqF2_ext").val($("#FecLiqF2").val());
+            $("#Tip_Con_ext").val($("#Tip_Con").val());
+            $("#Employee_Id_ext").val($("#Employee_Id").val());
+            $("#Agreement_ext").val($("#Agreement").val());
+            $('#ModalExtra').modal('hide');
+
+            Swal.fire({                    
+                title: '¡Espera un momento!',
+                text: '¡Estamos generando el reporte seleccionado!',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {                                
+                        Swal.showLoading();                       
+                        setTimeout(function () {
+                        swal.close(); 
+                    }, 300000);                   
+                }
+            });            
+              
+
+            $("#GenerateExtra1").submit();              
+                                   
+                });
+
+       
+       
+
+         @*function GuardarExtra() {
+             $("#FecLiqI_ext").val($("#FecLiqI").val());
+             $("#FecLiqF_ext").val($("#FecLiqf").val());
+        var formExt = $("#GuardarExtra1");
+        var n = formExt.serialize();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GenerateExcel", "ConsolidatePayroll")',
+            data: formExt.serialize(),
+            success: function (result) {
+                if (result !== "") {
+                    if (result !== "Incomp") {
+                        $('#ModalExtra').modal('hide');
+                        swal.close();
+                        Swal.fire({
+                            type: 'success',
+                            title: '¡Excelente!',
+                            text: 'Hemos guardado tus datos extras.',
+                            confirmButtonText: "Aceptar",
+                        });
+                    } else {
+                        swal.close();
+                        Swal.fire({
+                            type: 'warning',
+                            title: '¡Atención!',
+                            text: 'No podemos guardar tu información hasta que ingreses todos los datos necesarios.',
+                            confirmButtonText: "Aceptar",
+                        });
+                    }
+                } else {
+                    swal.close();
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Tenemos problemas con el guardado de tus datos. Intentalo más tarde.',
+                    });
+                }
+            },
+            error: function ()
+            {
+                swal.close();
+                Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Tenemos problemas para facilitar las funcionalidades. Intentalo más tarde.',
+                        footer: '<center>Por favor comuniquese con el Departamento de TI y reporte este error</center>'
+                });
+            }
+        });
+    }*@
+
+
+        function NumForBotomsErrorsExcelWD() {
+            $.ajax({
+                url: 'NumeroDeErroresExcels',
+                type: 'post',
+                async: false,
+                data: {
+                    FechaCorte: $("#DateCut").val(),
+                    Convenio: "@ViewBag.Agree"
+                },
+                dataType: 'json',
+                success: function (elemen) {
+                    $("#spNovNoError").html("");
+                    $("#spNovNoError").append(elemen);
+                },
+                error: (function () {
+                    swal.close();
+                    Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Tenemos problemas para facilitar las funcionalidades. Intentalo más tarde.',
+                            footer: '<center>Por favor comuniquese con el Departamento de TI y reporte este error</center>'
+                    });
+                })
+            });
+        }
+
+        function DatablesDatas(type) {
+            fullDate = $("#DateCut").val();
+            Separate = fullDate.split('-');
+            switch (type) {
+                case "WithButtons":
+                    table = $('.dataTables-example').DataTable({
+                        ajax: {
+                            url: "PaysheetNoveltiesCustomersDateList",
+                            data:
+                            {
+                                date: Separate[0],
+                                Agree: $("#Agreement").val()
+                            },
+                            dataSrc: ""
+                        },
+                        columns: [{
+                            "className": 'details-control',
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        { data: 'Employee.cod_emp' },
+                        { data: 'Employee.FullName' },
+                        {
+                            data: null, "width": "130px", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                                if (IsActualNomina) {
+                                var text = "<span class='badge badge-success' style='width:130px;cursor: pointer;' id='AddNov'>+ Agregar novedad</span> " +
+                                        "<span class='badge badge-danger' style='width:130px;cursor: pointer;' id='DeleteNov' >Eliminar novedades</span> ";
+
+
+                                } else {
+                                    var text = "";
+                                }
+                                $(nTd).html(text);
+                            }
+                        }
+                        ],
+                        "columnDefs": [
+                            {
+                                "targets": 0,
+                                "width": "5px",
+                                "orderable": false,
+                                "Sortable": false
+                            },
+                            {
+                                "targets": 1,
+                                "width": "127px",
+                                "orderable": false,
+                                "Sortable": false
+                            },
+                            {
+                                "targets": 2,
+                                "width": "496px",
+                                "orderable": false,
+                                "Sortable": false
+                            },
+                            {
+                                "targets": 3,
+                                "width": "145px",
+                                "orderable": false,
+                                "Sortable": false
+                            }
+                        ],
+                        dom:'<"row"<"col-4"f><"col-8"><"col-12"t><"col-6"p><"col-6"l><"col-12"i>>',
+                    language: {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+                    },
+                    });
+                    break;
+                case "Reload":
+                    table = $('.dataTables-example').DataTable({
+                        ajax: {
+                            url: "PaysheetNoveltiesCustomersDateList",
+                            data:
+                            {
+                                date: "@ViewBag.Date",
+                                Agree: "@ViewBag.Agree"
+                            },
+                            dataSrc: ""
+                        },
+                        columns: [
+                            {
+                                "className": 'details-control',
+                                "data": null,
+                                "defaultContent": ''
+                            },
+                            { data: 'Employee.cod_emp' },
+                            { data: 'Employee.FullName' },
+                            {
+                                data: null, "width": "130px", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                                if(IsActualNomina) {
+
+                                    var text = "<span class='badge badge-success' style='width:130px;cursor: pointer;' id='AddNov'>+ Agregar novedad</span> " +
+                                        "<span class='badge badge-danger' style='width:130px;cursor: pointer;' id='DeleteNov'>Eliminar novedades</span> ";
+
+                                } else {
+                                    var text = "";
+                                    }
+                                     $(nTd).html(text);
+                                }
+                            }
+                        ],
+                        "columnDefs": [
+                            {
+                                "targets": 0,
+                                "width": "5px",
+                                "orderable": false,
+                                "Sortable": false
+                            },
+                            {
+                                "targets": 1,
+                                "width": "127px",
+                                "orderable": false,
+                                "Sortable": false
+                            },
+                            {
+                                "targets": 2,
+                                "width": "496px",
+                                "orderable": false,
+                                "Sortable": false
+                            },
+                            {
+                                "targets": 3,
+                                "width": "145px",
+                                "orderable": false,
+                                "Sortable": false
+                            }
+                        ],
+                        dom:'<"row"<"col-4"f><"col-8"><"col-12"t><"col-6"p><"col-6"l><"col-12"i>>',
+                        language: {
+                            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+                        },
+                  });
+                break;
+            }
+        }
+        function format(d) {
+            var url;
+            var data =
+            '<div class="col-sm-12">' +
+            '</div>'+
+            '<div class="col-sm-12">'+'<h5 style="font-size: 13px;">Novedades de nómina</h5>'+
+            '<table class="table table-striped table-bordered table-hover">' +
+             '<thead>'+
+               '<tr>'+
+                 '<th>Concepto novedad</th>'+
+                 '<th>Convenio</th>'+
+                 '<th>Valor</th>' +
+                 '<th style="width:10px"></th>'+
+                 '</tr>'+
+                '</thead><tbody>';
+            var newValue;
+            $.each(d.Novelty, function (key, value) {
+                newValue = value.Value.split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
+                newValue = newValue.split('').reverse().join('').replace(/^[\.]/, '');
+                if (value.Flag == 1) {
+                    url = "@Url.Action("PaysheetNoveltiesDelete", "Transactions",new { id = "ID", indicator = 1, IncomeType = ViewBag.Income})".replace("ID", value.Id);
+                    data = data +
+                    '<tr style="background-color: #ECABAB;">' +
+                    '<td>' + value.Concept_Id +' - '+ value.Concept_Name + '</td>' +
+                    '<td>' + value.Agreement + '</td>' +
+                    '<td>' + newValue + '</td>' +
+                    '<td>' + '<a href="'+url+'" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a></td>' +
+                    '</tr>';
+                } else {
+                    if (IsAcepted) {
+                        if (value.Acc == 0) {
+                            data = data +
+                            '<tr style="background-color: #C8F3D8;">' +
+                        '<td>' + value.Concept_Id +' - '+ value.Concept_Name + '</td>' +
+                        '<td>' + value.Agreement + '</td>' +
+                        '<td>' + newValue + '</td>' +
+                        '<td></td>'+
+                        '</tr>';
+                    }
+                    } else {
+                        if (IsActualNomina) {
+                            if (value.Acc == 0) {
+                                data = data +
+                                    '<tr style="background-color: #C8F3D8;">' +
+                                '<td>' + value.Concept_Id +' - '+ value.Concept_Name + '</td>' +
+                                '<td>' + value.Agreement + '</td>' +
+                                '<td>' + newValue + '</td>' +
+                                '<td>' + '<button value="'+value.Id+'" Onclick="MoveToDelete(this.value)" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button></td>'+
+                                '</tr>';
+                            }
+                        } else {
+                            if (value.Acc == 0) {
+                                data = data +
+                                    '<tr style="background-color: #C8F3D8;">' +
+                                '<td>' + value.Concept_Id +' - '+ value.Concept_Name + '</td>' +
+                                '<td>' + value.Agreement + '</td>' +
+                                '<td>' + newValue + '</td>' +
+                                '<td></td>'+
+                                '</tr>';
+                            }
+                        }
+                    }
+                }
+            });
+            data = data + ' </tbody></table>'+
+            '</div>';
+            data = data +
+            '<div class="col-sm-12">' +
+            '</div>'+
+               '<div class="col-sm-12">'+'<h5 style="font-size: 13px;">Novedades de ausentimos</h5>'+
+                '<table class="table table-striped table-bordered table-hover">' +
+                '<thead>'+
+                    '<tr>' +
+                        '<th>Tipo ausentismo</th>' +
+                        '<th>Fecha inicio</th>'+
+                '<th>Fecha fin</th>' +
+                '<th>Fecha real inicio</th>' +
+                '<th>Fecha real fin</th>'+
+                        '<th>Convenio</th>' +
+                        '<th style="width:10px"></th>'+
+                    '</tr>'+
+                '</thead><tbody>';
+                $.each(d.Absenteeism, function (key, value) {
+                    if (value.Flag == 2) {
+                        url = "@Url.Action("PaysheetAbsencesDelete", "Transactions",new { id = "ID", indicator = 1, IncomeType = ViewBag.Income})".replace("ID", value.Id);
+                        data = data +
+                        '<tr style="background-color: #ECABAB;">' +
+                        '<td>' + value.Absenteeism_Id +' - '+ value.Absenteeism_Name + '</td>' +
+                        '<td>' + value.DateStart + '</td>' +
+                            '<td>' + value.DateEnd + '</td>' +
+                            '<td>' + value.DateReallyStart + '</td>' +
+                            '<td>' + value.DateReallyEnd + '</td>' +
+                        '<td>' + value.Agreement + '</td>' +
+                        '<td>' + '<a href="'+url+'" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a></td>' +
+                        '</tr>';
+                    } else {
+                        if (IsAcepted) {
+                            if (value.Acc == 0) {
+                                data = data +
+                                    '<tr style="background-color: #C8F3D8;">' +
+                                '<td>' + value.Absenteeism_Id +' - '+ value.Absenteeism_Name + '</td>' +
+                                '<td>' + value.DateStart + '</td>' +
+                                    '<td>' + value.DateEnd + '</td>' +
+                                    '<td>' + value.DateReallyStart + '</td>' +
+                            '<td>' + value.DateReallyEnd + '</td>' +
+                                '<td>' + value.Agreement + '</td>' +
+                                '<td></td>'+
+                                '</tr>';
+                            }
+                        } else {
+                            if (IsActualNomina)
+                            {
+                                if (value.Flag == 7 || value.Flag == 8) {
+                                    data = data +
+                                        '<tr style="background-color: #C8F3D8;">' +
+                                    '<td>' + value.Absenteeism_Id +' - '+ value.Absenteeism_Name + '</td>' +
+                                    '<td>' + value.DateStart + '</td>' +
+                                        '<td>' + value.DateEnd + '</td>' +
+                                        '<td>' + value.DateReallyStart + '</td>' +
+                            '<td>' + value.DateReallyEnd + '</td>' +
+                                    '<td>' + value.Agreement + '</td>' +
+                                    '<td><a id="No_Delete" href="#" class="btn btn-outline-info btn-sm"><i class="fa fa-info-circle"></i></a></td>'+
+                                    '</tr>';
+                                } else {
+                                if (value.Acc == 0) {
+                                    data = data +
+                                        '<tr style="background-color: #C8F3D8;">' +
+                                    '<td>' + value.Absenteeism_Id +' - '+ value.Absenteeism_Name + '</td>' +
+                                    '<td>' + value.DateStart + '</td>' +
+                                        '<td>' + value.DateEnd + '</td>' +
+                                        '<td>' + value.DateReallyStart + '</td>' +
+                            '<td>' + value.DateReallyEnd + '</td>' +
+                                    '<td>' + value.Agreement + '</td>' +
+                                    '<td>' + '<button value="'+value.Id+'" Onclick="MoveToDelete(this.value)" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button></td>'+
+                                    '</tr>';
+                                }
+                               }
+
+                            }
+                            else {
+                                if (value.Acc == 0) {
+                                    data = data +
+                                    '<td>' + value.Absenteeism_Id +' - '+ value.Absenteeism_Name + '</td>' +
+                                    '<td>' + value.DateStart + '</td>' +
+                                        '<td>' + value.DateEnd + '</td>' +
+                                        '<td>' + value.DateReallyStart + '</td>' +
+                                        '<td>' + value.DateReallyEnd + '</td>' +
+                                    '<td>' + value.Agreement + '</td>' +
+                                    '<td></td>'+
+                                    '</tr>';
+                                }
+                            }
+                        }
+                    }
+                });
+                data = data + ' </tbody></table>'+
+                      '</div>';
+                data = data +
+                      '<div class="col-sm-12">' +
+                '</div>'+
+                '<div class="col-sm-12">'+'<h5 style="font-size: 13px;">Novedades de retiro</h5>'+
+                '<table class="table table-striped table-bordered table-hover">' +
+                '<thead>'+
+                    '<tr>' +
+                        '<th>Fecha de retiro</th>'+
+                        '<th>Convenio</th>' +
+                        '<th style="width:10px"></th>'+
+                    '</tr>'+
+                '</thead><tbody>';
+                $.each(d.Retirement, function (key, value) {
+                    if (value.Flag == 3) {
+                        url = "@Url.Action("PaysheetRetreatsDelete", "Transactions",new { id = "ID", indicator = 1, IncomeType = ViewBag.Income})".replace("ID", value.Id);
+                        data = data +
+                            '<tr style="background-color: #ECABAB;">' +
+                        '<td>' + value.DateEnd + '</td>' +
+                        '<td>' + value.Agreement + '</td>' +
+                        '<td>' + '<a href="'+url+'" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a></td>' +
+                        '</tr>';
+                    } else {
+                        if (IsAcepted) {
+                            if (value.Acc == 0) {
+                                data = data +
+                                    '<tr style="background-color: #C8F3D8;">' +
+                                '<td>' + value.DateEnd + '</td>' +
+                                '<td>' + value.Agreement + '</td>' +
+                                '<td></td>'+
+                                '</tr>';
+                            }
+                        } else {
+                            if (IsActualNomina) {
+                                    if (value.Acc == 0) {
+                                        data = data +
+                                            '<tr style="background-color: #C8F3D8;">' +
+                                    '<td>' + value.DateEnd + '</td>' +
+                                    '<td>' + value.Agreement + '</td>' +
+                                    '<td>' + '<button value="'+value.Id+'" Onclick="MoveToDelete(this.value)" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button></td>'+
+                                    '</tr>';
+                                    }
+                                } else {
+                                    if (value.Acc == 0) {
+                                        data = data +
+                                            '<tr style="background-color: #C8F3D8;">' +
+                                    '<td>' + value.DateEnd + '</td>' +
+                                    '<td>' + value.Agreement + '</td>' +
+                                    '<td></td>'+
+                                    '</tr>';
+                                }
+                            }
+                        }
+                    }
+                });
+                data = data + ' </tbody></table>'+
+                '</div> <br />';
+            return data;
+        }
+        $(document).on("change", "#Agreement", function () {
+            Swal.fire({
+                title: 'Consultando fechas de corte...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    $("#BottomSpaces").html("");
+                    ChargeListDates("Standar");
+                    table.clear().draw();
+                    table.destroy();
+                    OnlyDatable();
+                    setTimeout(function () {
+                        swal.close();
+                    }, 1600);
+                }
+            });
+        }); //Carga de fecha de cortes por convenios.
+        function OnlyDatable() {
+            table = $('.dataTables-example').DataTable({
+                dom: '<"row"<"col-4"f><"col-8"><"col-12"t><"col-6"p><"col-6"l><"col-12"i>>',
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+                },
+                "columnDefs": [
+                    {
+                        "targets": 0,
+                        "width": "5px",
+                        "orderable": false,
+                        "Sortable": false
+                    },
+                    {
+                        "targets": 1,
+                        "width": "127px",
+                        "orderable": false,
+                        "Sortable": false
+                    },
+                    {
+                        "targets": 2,
+                        "width": "496px",
+                        "orderable": false,
+                        "Sortable": false
+                    },
+                    {
+                        "targets": 3,
+                        "width": "145px",
+                        "orderable": false,
+                        "Sortable": false
+                    }
+                ]
+            });
+        } //Cargando tablas vacia.
+        $(document).on("change", "#ListDco", function () {
+          swal.showLoading();
+           Swal.fire({
+               title: 'Descargando archivo...',
+               allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    fullDate = $("#DateCut").val();
+                    Separate = fullDate.split('-');
+                    $("#AgreDesc").val($("#Agreement").val());
+                    $("#DateDesc").val(Separate[0]);
+                    $("#Document").val($("#ListDco").val());
+                    $("#DescargarArchivos").submit();
+                    setTimeout(function () {
+                       swal.close();
+                    }, 2000);
+                }
+           });
+        });//Este metodo descarga una lista de documento.
+        function ChargeListDates(type) {
+            if (type == "Standar") {
+              $.ajax({
+              url: 'AgreementsList',
+              type: 'get',
+              async: false,
+              data: {
+                  Convenio: $("#Agreement").val(),
+                  IncominType: "@ViewBag.Income"
+              },
+              dataType: 'json',
+                success: function (data) {
+                    $('#DateCut').empty();
+                    $('#DateCut').append('<option disabled selected>Selecciona tu fecha de corte</option>');
+                    if ("@ViewBag.Income" === "1") {
+                        $.each(data, function (key, value)
+                        {
+                            var SeparateDate = value.FullDate.split('-');
+                            if (SeparateDate[1] == 1) {
+                                 $("#DateCut").append('<option value=' + value.FullDate + ' style="color:RGB(128, 247, 60)">' + value.dtmFechaCorte + '</option>');
+                            } else {
+                                 $("#DateCut").append('<option value=' + value.FullDate + ' style="color:RGB(250, 128, 114)">' + value.dtmFechaCorte + '</option>');
+                            }
+                        });
+                    } else {
+                        $.each(data, function (key, value)
+                        {
+                            $("#DateCut").append('<option value=' + value.FullDate + '>' + value.dtmFechaCorte + '</option>');
+                        });
+                    }
+                    $("#DateCut").selectpicker('refresh');
+                    ListDocuments()
+              },
+              error: (function () {
+                  swal.close();
+                  Swal.fire({
+                      type: 'error',
+                      title: 'Oops...',
+                      text: 'Estamos presentando algunas dificultades',
+                      footer: '<center>Por favor, comunícate con el departamento de TI y reporta este error</center>'
+
+                  });
+              })
+              });
+            }
+            else
+            {
+              $.ajax({
+              url: 'AgreementsList',
+              type: 'get',
+              async: false,
+              data: {
+                  Convenio: $("#Agreement").val(),
+                  IncominType: "@ViewBag.Income"
+              },
+              dataType: 'json',
+                success: function (data) {
+                    $('#DateCut').empty();
+                    $('#DateCut').append('<option disabled>Selecciona tu fecha de corte</option>');
+                    if ("@ViewBag.Income" === "1") {
+                        $.each(data, function (key, value) {
+                            var SeparateDate = value.FullDate.split('-');
+                            if (value.dtmFechaCorte === "@ViewBag.Date") {
+                                if (SeparateDate[1] == 1) {
+                                    $("#DateCut").append('<option value=' + value.FullDate + ' style="color:RGB(128, 247, 60)" selected>' + value.dtmFechaCorte + '</option>');
+                                } else {
+                                    $("#DateCut").append('<option value=' + value.FullDate + ' style="color:RGB(250, 128, 114)" selected>' + value.dtmFechaCorte + '</option>');
+                                }
+                            } else {
+                                if (SeparateDate[1] == 1) {
+                                    $("#DateCut").append('<option value=' + value.FullDate + ' style="color:RGB(128, 247, 60)">' + value.dtmFechaCorte + '</option>');
+                                } else {
+                                    $("#DateCut").append('<option value=' + value.FullDate + ' style="color:RGB(250, 128, 114)">' + value.dtmFechaCorte + '</option>');
+                                }
+                            }
+                        });
+                        $("#DateCut option:eq(1)").css("color", "RGB(128, 247, 60)");
+                    }
+                    else {
+                        $.each(data, function (key, value) {
+                            var SeparateDate = value.FullDate.split('-');
+                            if (value.dtmFechaCorte === "@ViewBag.Date") {
+                                 $("#DateCut").append('<option value=' + value.FullDate + '>' + value.dtmFechaCorte + '</option>');
+                            } else {
+                                 $("#DateCut").append('<option value=' + value.FullDate + 'selected>' + value.dtmFechaCorte + '</option>');
+                            }
+                        });
+                    }
+                    $("#DateCut").selectpicker('refresh');
+                    ListDocuments();
+              },
+              error: (function () {
+                  swal.close();
+                  Swal.fire({
+                      type: 'error',
+                      title: 'Oops...',
+                      text: 'Estamos presentando algunas dificultades',
+                      footer: '<center>Por favor, comunícate con el departamento de TI y reporta este error</center>'
+
+                  });
+              })
+              });
+            }
+        }//Cargar lista de datos
+        $('.dataTables-example tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+            }
+        });
+
+        function RegisterNovelties() {
+           Swal.fire({
+               title: 'Validando y enviando sus novedades...',
+               allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(function () {
+                        $("#AgreeSav").val($("#Agreement").val());
+                        $("#dateSav").val($("#DateCut").val());
+                        $("#GoToSave").submit();
+                    }, 400);
+                }
+            });
+        }
+        function RegisterNovelties1() {
+            Swal.fire({
+                title: 'Validando y enviando sus novedades...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(function () {
+                        $("#AgreeSav").val($("#Agreement").val());
+                        $("#dateSav").val($("#DateCut").val());
+                        $("#GoToSavecon").submit();
+                    }, 400);
+                }
+            });
+        }
+
+        function GenerateExcel() {
+            Swal.fire({
+                title: 'Generando su archivo...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    Swal.fire({
+                        title: 'Estamos generando el reporte solicitado...',
+                        allowOutsideClick: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                            $("#AgreeSav").val($("#Agreement").val());
+                            $("#dateSav").val($("#DateCut").val());
+                            $("#GoToExcel").submit();
+                        }
+                    });
+                                   
+
+
+
+
+                    Swal.fire(
+                        'Espera un momento!',
+                        'Estamos generando su reporte!',
+                        'success'
+                    )
+
+                    //setTimeout(function () {
+                    //    $("#AgreeSav").val($("#Agreement").val());
+                    //    $("#dateSav").val($("#DateCut").val());
+                    //    $("#GoToExcel").submit();
+                    //}, 400);
+                }
+            });
+        }
+        //Revisar e ingresar novedades
+        function RegisterNoveltiesExtem() {
+            Swal.fire({
+                title: 'Validando y enviando sus novedades...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(function () {
+                        $("#AgreeSavExt").val($("#Agreement").val());
+                        $("#dateSavExt").val($("#DateCut").val());
+                        $("#GoToSaveExtempo").submit();
+                    }, 400);
+                }
+            });
+        }//Revisar e ingresar novedades
+        function ListDocuments() {
+            $.ajax({
+              url: 'ListDocuments',
+              type: 'post',
+              async: false,
+              data: {
+                  DateCut: $("#DateCut").val(),
+                  Agree: $("#Agreement").val(),
+              },
+              dataType: 'json',
+                success: function (elemen) {
+                    $('#ListDco').empty();
+                    if (elemen.length == 0) {
+                        $('#ListDco').append('<option disabled selected>No tienes archivos para descargar</option>');
+                    } else {
+                         $('#ListDco').append('<option disabled selected>Selecciona tu documento a descargar</option>');
+                    }
+                $.each(elemen, function (key, value)
+                {
+                    $("#ListDco").append('<option value=' + value + '>' + value + '</option>');
+                });
+
+                $("#ListDco").selectpicker('refresh');
+              },
+              error: (function () {
+                  swal.close();
+                  Swal.fire({
+                      type: 'error',
+                      title: 'Oops...',
+                      text: 'Estamos presentando algunas dificultades',
+                      footer: '<center>Por favor, comunícate con el departamento de TI y reporta este error</center>'
+
+                  });
+              })
+           });
+        }//Carga la lista de documentos de nómina
+        function AceptarNomina()
+        {
+            $("#AgreeAcept").val($("#Agreement").val());
+            $("#dateAcept").val($("#DateCut").val());
+             Swal.fire({
+                title: 'Aprobando tu nómina, espera un momento...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(function () {
+                        $("#GoToAproveeNomina").submit();
+                    }, 500);
+                }
+            });
+        }//Aceptar nomina en el sistema... primero se debe estar completa sin errores.
+        function RepeticionAuditoria()
+        {
+            $("#AgreeRept").val($("#Agreement").val());
+            $("#dateRept").val($("#DateCut").val());
+             Swal.fire({
+                title: 'Generando tu auditoria, espera un momento...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(function () {
+                        $("#GoToRepAuditoria").submit();
+                    }, 500);
+                }
+            });
+        }//Aceptar nomina en el sistema... primero se debe estar completa sin errores.
+        $('.dataTables-example tbody').on('click', '#AddNov', function () {
+          InfoNov = table.row($(this).parents('tr')).data();
+           Emp = InfoNov.Employee.cod_emp;
+            var text = InfoNov.Employee.FullName + '<br /><br /><div class="text-justify  offset-md-5"><a id="NovedadFast" href="#" class="txt-nov"><i class="fa fa-arrow-right" aria-hidden="true"></i> Nómina</a> <br />' +
+                      '<a id="AbsentisFast" href="#" class="txt-nov"><i class="fa fa-arrow-right" aria-hidden="true"></i> Ausentismo</a> <br />' +
+                      '<a id="RetreatsFast" href="#" class="txt-nov"><i class="fa fa-arrow-right" aria-hidden="true"></i> Retiro</a>'+
+                '</div>';
+               Swal.fire({
+                   title: 'Ingreso de novedades para:',
+                   allowOutsideClick: false,
+                     html: text,
+                     showCancelButton: true,
+                     cancelButtonText: 'Regresar',
+                     showConfirmButton: false,
+                     buttonsStyling: false,
+                   cancelButtonClass: "btn btn-outline btn-danger",
+               });
+        });// Se traen los botones para traer información por empleados
+        $(document).on("click", "#GenerateExcelButton", function () {
+            fullDate = $("#DateCut").val();
+            Separate = fullDate.split('-');
+            $("#AgreExcel").val($("#Agreement").val());
+            $("#DateExcel").val(Separate[0]);
+            $("#GenerateExcel").submit();
+        });//Generación de excel para ingreso de novedades
+        $(document).on("click", "#EntregarExcel", function () {
+            fullDate = $("#DateCut").val();
+            Separate = fullDate.split('-');
+            Swal.close();
+            var text = '<br /><form action="/Transactions/ValidarArchivo" enctype="multipart/form-data" id="EntreExcel" method="post">' +
+                '<input type="hidden" name="Agre" id="AgreReg" value ="' + $("#Agreement").val() + '">' +
+                '<input type="hidden" name="Date" id="DateReg" value = "' + Separate[0] + '">' +
+                '<input type="hidden" name="IncomeType" id="IncomeTypeReg" value = "' + "@ViewBag.Income" + '">' +
+                '<input type="file" id="dataFile" name="File"><br /><br />' +
+                '<button type="submit" value="Entregar" id="EntregExcel" class="btn  btn-outline-success">Revisar</button> <br />' +
+                '</form>' +
+                '<div id="MessageProccess"></div>';
+        Swal.fire({
+            title: 'Entregue su archivo con novedades',
+            allowOutsideClick: false,
+            html: text,
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            showConfirmButton: false,
+            buttonsStyling: false,
+            cancelButtonClass: "btn btn-danger btn-lg",
+        });
+        });//Entregar excel para ingreso de novedades de nomina
+        $(document).on("click", "#EntregExcel", function () {
+            $("#MessageProccess").append("<h2>Revisando y registrando tu plantilla...</h2> <div class='spinner-border text-primary' role='status'>"+
+                                         "<span class= 'sr-only'></span >"+
+                                         "</div>");
+        }); //El mensajito de revisando tus novedades.
+        $('.dataTables-example tbody').on('click', '#DeleteNov', function () {
+            InfoNov = table.row($(this).parents('tr')).data();
+            Emp = InfoNov.Employee.cod_emp;
+            var text = InfoNov.Employee.FullName + '<br /><br />';
+            Swal.fire({
+                title: 'Eliminar novedades de:',
+                html: text,
+                showCancelButton: true,
+                confirmButtonText:'Eliminar',
+                cancelButtonText: 'Regresar',
+                showConfirmButton: true,
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-outline-success mr-3',
+                cancelButtonClass: "btn btn-outline btn-danger"
+            }).then((result) => {
+                if (result.value) {
+                    swal.close();
+                    EliminarNovedadesEmpleado(Emp);
+                }
+            });
+        }); //Eliminación de novedades por ususario
+        $(document).on("click", "#Novedad", function () {
+            fullDate = $("#DateCut").val();
+            Separate = fullDate.split('-');
+            $("#Agre").val($("#Agreement").val());
+            $("#Date").val(Separate[0]);
+            $("#Employeed").val(null);
+            Swal.fire({
+                title: 'Espere un momento...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    $("#SendGuardarNovedad").submit();
+                }
+            });
+        });//Enviar a Novedades de nomina sin datos
+        $(document).on("click", "#Absentis", function () {
+            fullDate = $("#DateCut").val();
+            Separate = fullDate.split('-');
+            $("#AgreAbs").val($("#Agreement").val());
+            $("#DateAbs").val(Separate[0]);
+            $("#EmployeedAbs").val(null);
+            Swal.fire({
+                title: 'Espere un momento...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    $("#SendGuardarAbsentism").submit();
+                }
+            });
+
+        });//Enviar a Ausentismos sin datos
+        $(document).on("click", "#Retreats", function () {
+            fullDate = $("#DateCut").val();
+            Separate = fullDate.split('-');
+            $("#AgreRet").val($("#Agreement").val());
+            $("#DateRet").val(Separate[0]);
+            $("#EmployeedRet").val(null);
+            Swal.fire({
+                title: 'Espere un momento...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    $("#SendGuardarRetreats").submit();
+                }
+            });
+        }); //Despliega el menu de noveades.
+        $(document).on("click", "#IniProcessNomPr", function () {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Iniciar la validación de liquidación de prima",
+                //icon: 'info',
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-outline-success mr-3',
+                confirmButtonText: 'Iniciar',
+                cancelButtonText: 'Cancelar',
+                cancelButtonClass: 'btn btn-outline btn-danger'
+            }).then((result) => {
+                if (result.value) {
+                    swal.close();
+                    RegisterNovelties();
+                }
+            });
+        });
+        $(document).on("click", "#IniProcessNomcon", function () {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Iniciar la validación de consolidados",
+                //icon: 'info',
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-outline-success mr-3',
+                confirmButtonText: 'Iniciar',
+                cancelButtonText: 'Cancelar',
+                cancelButtonClass: 'btn btn-outline btn-danger'
+            }).then((result) => {
+                if (result.value) {
+                    swal.close();
+                    RegisterNovelties1();
+                }
+            });
+        });
+        //$(document).on("click", "#GenerateExcel", function () {
+        //    Swal.fire({
+        //        title: '¿Estás seguro?',
+        //        text: "Iniciar la generacion del reporte",
+        //        //icon: 'info',
+        //        showCancelButton: true,
+        //        buttonsStyling: false,
+        //        confirmButtonClass: 'btn btn-outline-success mr-3',
+        //        confirmButtonText: 'Iniciar',
+        //        cancelButtonText: 'Cancelar',
+        //        cancelButtonClass: 'btn btn-outline btn-danger'
+        //    }).then((result) => {
+        //        if (result.value) {
+        //            swal.close();
+        //            GenerateExcel1();
+        //        }
+        //    });
+        //});
+        //Muestra la pregunta de inicio de procesado de nómina.
+        $(document).on("click", "#AprovNomina", function() {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Sí aceptas la nómina generada, NO serán registrados más cambios con esta fecha de corte.",
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-outline-success mr-3',
+                cancelButtonClass: 'btn btn-outline btn-danger',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    swal.close();
+                    AceptarNomina();
+                }
+            });
+            allowOutsideClick: false
+        }); //Muestra a pregunta sobre el aprobado de nómina.
+        $(document).on("click", "#RepAudito", function() {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "En ejecutar otra rectificación de la auditoria de su nómina.",
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-outline-success mr-3',
+                cancelButtonClass: 'btn btn-outline btn-danger',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    swal.close();
+                    RepeticionAuditoria();
+                }
+            });
+            allowOutsideClick: false
+        }); //Muestra a pregunta sobre el aprobado de nómina.
+        $(document).on("click", "#EmpActives", function () {
+            var fullDate = $("#DateCut").val();
+            var Separate = fullDate.split('-');
+             $("#AgreListE").val($("#Agreement").val());
+             $("#DateListE").val(Separate[0]);
+             $("#GenerateListaEmpleados").submit();
+             Swal.fire({
+                     title: 'Generando tu archivo...',
+                     allowOutsideClick: false,
+                     onBeforeOpen: () => {
+                         Swal.showLoading();
+                         setTimeout(function () {
+                              swal.close();
+                     }, 1500);
+                 }
+             });
+        });//Descarga el archivo de empleados activos.
+        $(document).on("click", "#NoveActives", function () {
+            var fullDate = $("#DateCut").val();
+            var Separate = fullDate.split('-');
+            $("#AgreRegist").val($("#Agreement").val());
+            $("#DateRegist").val(Separate[0]);
+            $("#PrenominaRegister").submit();
+            Swal.fire({
+                    title: 'Generando tu archivo...',
+                    allowOutsideClick: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                        setTimeout(function () {
+                             swal.close();
+                    }, 1500);
+                }
+            });
+        });//Descarga las novedades activas que hayan registradas.
+        $(document).on("click", "#ErrorExcelFiles", function () {
+            var fullDate = $("#DateCut").val();
+            var Separate = fullDate.split('-');
+            $("#AgreErrExcel").val($("#Agreement").val());
+            $("#DateErrExcel").val(Separate[0]);
+            $("#FileListErrorSaveEntry").submit();
+            Swal.fire({
+                    title: 'Generando tu archivo...',
+                    allowOutsideClick: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                        setTimeout(function () {
+                             swal.close();
+                    }, 1500);
+                }
+            });
+        });//Descarga las novedades activas que hayan registradas.
+        $(document).on("click", "#EliNovReport", function() {
+             Swal.fire({
+                 title: '¿Estás seguro?',
+                 html: "¿Desea eliminar todas las novedades del convenio? <br /><br /> Esta función no elimina incapacidades ni retiros de los empleados.",
+                 showCancelButton: true,
+                 buttonsStyling: false,
+                 confirmButtonClass: 'btn btn-outline-success mr-3',
+                 confirmButtonText: 'Aceptar',
+                 cancelButtonText: 'Cancelar',
+                 cancelButtonClass: 'btn btn-outline btn-danger'
+             }).then((result) => {
+                 if (result.value) {
+                     swal.close();
+                     EliminarNovedadesConvenio();
+                 }
+             });
+        });//Realiza el proceso de eliminación de todas las novedades.
+        function EliminarNovedadesConvenio() {
+            fullDate = $("#DateCut").val();
+            Separate = fullDate.split('-');
+            $("#DateAg").val(Separate[0]);
+            $("#Agreem").val($("#Agreement").val());
+            Swal.fire({
+                title: 'Eliminando todas sus novedades...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(function () {
+                         $("#DeleteNoveltyAgreement").submit();
+                    }, 500);
+                }
+            });
+        };
+    </script>
+}
